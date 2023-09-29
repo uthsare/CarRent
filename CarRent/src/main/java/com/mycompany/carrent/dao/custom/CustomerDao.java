@@ -3,11 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
 package com.mycompany.carrent.dao.custom;
-
+import com.mycompany.carrent.entity.CustomerEntity;
+import com.mycompany.carrent.dao.CrudDao;
 /**
  *
- * @author ASUS
+ * @author Uthsara Basnayake
  */
-public interface CustomerDao {
+public interface CustomerDao extends CrudDao<CustomerEntity,String>  {
     
 }

@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.carrent.service;
+import com.mycompany.carrent.service.custom.impl.CustomerServiceImpl;
 
 /**
  *
@@ -26,9 +27,9 @@ public class ServiceFactory {
             case CUSTOMER:
                 return new CustomerServiceImpl();
             case ITEM:
-                return new ItemServiceImpl();
+                //return new ItemServiceImpl();
             case ORDER:
-                return new OrderServiceImpl();
+               // return new OrderServiceImpl();
             default:
                 return null;
         }
