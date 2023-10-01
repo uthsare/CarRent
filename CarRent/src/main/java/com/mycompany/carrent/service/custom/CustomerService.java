@@ -6,7 +6,7 @@ package com.mycompany.carrent.service.custom;
 import com.mycompany.carrent.dto.CustomerDto;
 import com.mycompany.carrent. service.SuperService;
 import java.util.ArrayList;
-import db.DBConnection;
+
 /**
  *
  * @author Uthsara Basnaayke

@@ -4,16 +4,34 @@
  */
 package view;
 
+
+import com.mycompany.carrent.controller.CarController;
+import com.mycompany.carrent.controller.CategoryController;
+import com.mycompany.carrent.controller.RentController;
+import com.mycompany.carrent.dto.CategoryDto;
+import com.mycompany.carrent.dto.RentDto;
+import com.mycompany.carrent.entity.CategoryEntity;
+import java.awt.HeadlessException;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ASUS
  */
 public class newRentPanel extends javax.swing.JPanel {
-
+RentController rentcontroller;
+private CategoryController categorycontroller;
+private CarController carcontroller;
     /**
      * Creates new form newRentPanel
      */
     public newRentPanel() {
+        rentcontroller=new RentController();
+       categorycontroller = new CategoryController();
+       carcontroller =new CarController();
         initComponents();
     }
 
@@ -31,15 +49,23 @@ public class newRentPanel extends javax.swing.JPanel {
         brand = new javax.swing.JLabel();
         model = new javax.swing.JLabel();
         year = new javax.swing.JLabel();
-        numberplate = new javax.swing.JLabel();
         brandText = new javax.swing.JTextField();
         modelText = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        yearbox = new javax.swing.JComboBox<>();
         rentButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
-        numberPlatetext = new javax.swing.JTextField();
         rclabel = new javax.swing.JLabel();
-        reText = new javax.swing.JTextField();
+        rental = new javax.swing.JLabel();
+        days = new javax.swing.JComboBox<>();
+        cost = new javax.swing.JLabel();
+        rentId = new javax.swing.JLabel();
+        rentIdText = new javax.swing.JTextField();
+        brandsearch = new javax.swing.JButton();
+        catLabel = new javax.swing.JLabel();
+        categoryLabel = new javax.swing.JLabel();
+        categoryText = new javax.swing.JTextField();
+        catsearch = new javax.swing.JButton();
+        modLabel = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(204, 0, 255));
 
@@ -53,93 +79,191 @@ public class newRentPanel extends javax.swing.JPanel {
 
         year.setText("Manufactured Year");
 
-        numberplate.setText("Number Plate");
+        modelText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modelTextActionPerformed(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999", "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990", "1989", "1988", "1987", "1986", "1985", "1984", "1983", "1982", "1981", "1980", "1979", "1978", "1976", "1975", "1974", "1973", "1972", "1971", "1970" }));
+        yearbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999", "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990", "1989", "1988", "1987", "1986", "1985", "1984", "1983", "1982", "1981", "1980", "1979", "1978", "1976", "1975", "1974", "1973", "1972", "1971", "1970" }));
+        yearbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yearboxActionPerformed(evt);
+            }
+        });
 
         rentButton.setText("Rent");
+        rentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rentButtonActionPerformed(evt);
+            }
+        });
 
         cancelButton.setText("Cancel");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
 
         rclabel.setText("Rent cost");
+
+        rental.setText("Rental Period");
+
+        days.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30" }));
+
+        cost.setFont(new java.awt.Font("Segoe UI", 2, 15)); // NOI18N
+        cost.setText("your cost is...");
+
+        rentId.setText("Rent ID");
+
+        brandsearch.setText("Search");
+        brandsearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                brandsearchActionPerformed(evt);
+            }
+        });
+
+        catLabel.setText("Categories are..");
+
+        categoryLabel.setText("Category");
+
+        catsearch.setText("Search");
+        catsearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                catsearchActionPerformed(evt);
+            }
+        });
+
+        modLabel.setText("Models are..");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(272, 272, 272)
-                .addComponent(header)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(model)
-                    .addComponent(brand)
-                    .addComponent(year)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(rclabel)
-                        .addComponent(numberplate)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(272, 272, 272)
+                        .addComponent(header))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(213, 213, 213)
                         .addComponent(rentButton)
                         .addGap(18, 18, 18)
                         .addComponent(cancelButton))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(reText, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(numberPlatetext, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(brandText, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(modelText, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, 157, Short.MAX_VALUE)))
-                .addContainerGap(183, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(71, 71, 71)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(brand)
+                                            .addGap(4, 4, 4))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(rclabel)
+                                            .addComponent(rental))))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                            .addComponent(rentId)
+                                            .addGap(4, 4, 4))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                            .addComponent(year)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                            .addComponent(categoryLabel)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(119, 119, 119)
+                                .addComponent(model)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(modelText, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(rentIdText, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cost, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(yearbox, javax.swing.GroupLayout.Alignment.LEADING, 0, 157, Short.MAX_VALUE))
+                            .addComponent(days, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(categoryText, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(brandText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(brandsearch)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(catLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(catsearch)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(modLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(header)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(brand)
-                    .addComponent(brandText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(model)
-                    .addComponent(modelText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(year)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(numberplate)
-                    .addComponent(numberPlatetext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(rentId)
+                    .addComponent(rentIdText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(brand))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(brandText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(brandsearch)
+                            .addComponent(catLabel))))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(categoryLabel)
+                    .addComponent(categoryText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(catsearch)
+                    .addComponent(modLabel))
+                .addGap(25, 25, 25)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(modelText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(model))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(yearbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(year))
+                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rental)
+                    .addComponent(days, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rclabel)
-                    .addComponent(reText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                    .addComponent(cost))
+                .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rentButton)
                     .addComponent(cancelButton))
-                .addGap(59, 59, 59))
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 630, Short.MAX_VALUE)
+            .addGap(0, 632, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 1, Short.MAX_VALUE)
+                    .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 1, Short.MAX_VALUE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 430, Short.MAX_VALUE)
+            .addGap(0, 462, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -148,21 +272,110 @@ public class newRentPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void rentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentButtonActionPerformed
+     rentcar();   // TODO add your handling code here:
+    }//GEN-LAST:event_rentButtonActionPerformed
+
+    private void yearboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_yearboxActionPerformed
+
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+      clear();  // TODO add your handling code here:
+    }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void modelTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modelTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modelTextActionPerformed
+
+    private void brandsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brandsearchActionPerformed
+searchCategories() ;       // TODO add your handling code here:
+    }//GEN-LAST:event_brandsearchActionPerformed
+
+    private void catsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_catsearchActionPerformed
+searchModel();        // TODO add your handling code here:
+    }//GEN-LAST:event_catsearchActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel brand;
     private javax.swing.JTextField brandText;
+    private javax.swing.JButton brandsearch;
     private javax.swing.JButton cancelButton;
+    private javax.swing.JLabel catLabel;
+    private javax.swing.JLabel categoryLabel;
+    private javax.swing.JTextField categoryText;
+    private javax.swing.JButton catsearch;
+    private javax.swing.JLabel cost;
+    private javax.swing.JComboBox<String> days;
     private javax.swing.JLabel header;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel modLabel;
     private javax.swing.JLabel model;
     private javax.swing.JTextField modelText;
-    private javax.swing.JTextField numberPlatetext;
-    private javax.swing.JLabel numberplate;
     private javax.swing.JLabel rclabel;
-    private javax.swing.JTextField reText;
     private javax.swing.JButton rentButton;
+    private javax.swing.JLabel rentId;
+    private javax.swing.JTextField rentIdText;
+    private javax.swing.JLabel rental;
     private javax.swing.JLabel year;
+    private javax.swing.JComboBox<String> yearbox;
     // End of variables declaration//GEN-END:variables
+
+    private void rentcar() {
+    try {
+        RentDto rd= new RentDto(rentIdText.getText(),brandText.getText(),
+                modelText.getText(),(String)yearbox.getSelectedItem(), /*numberPlatetext.getText()*/
+                (int)Double.parseDouble((String) days.getSelectedItem()));
+        
+        
+        String result = rentcontroller.addRent(rd);
+        JOptionPane.showMessageDialog(this, result);
+        clear();
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    } catch (Exception ex) {
+        Logger.getLogger(newRentPanel.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }
+     private void clear() {
+        rentId.setText("");
+        brandText.setText("");
+        modelText.setText("");
+         
+         yearbox.setSelectedItem("2023");
+        // numberPlatetext.setText("");
+         days.setSelectedItem("01");
+    }
+
+    private void searchCategories() {
+    try {
+        String brand = brandText.getText();
+       String[] category = categorycontroller.searchCategory(brand);
+        if (category!= null) {
+            catLabel.setText(  (Arrays.toString(category)));
+        } else {
+            JOptionPane.showMessageDialog(this, "Category Not Found");
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    } catch (Exception ex) {
+        Logger.getLogger(newRentPanel.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }
+
+    private void searchModel() {
+         try {
+        String category = categoryText.getText();
+       String[] model = carcontroller.searchModels(category);
+        if (model!= null) {
+            modLabel.setText(  (Arrays.toString(model)));
+        } else {
+            JOptionPane.showMessageDialog(this, "Model Not Found");
+        }
+        } catch (Exception ex) {
+        Logger.getLogger(newRentPanel.class.getName()).log(Level.SEVERE, null, ex);
+    }
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+       
+   
 }

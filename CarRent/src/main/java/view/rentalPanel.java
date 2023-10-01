@@ -4,16 +4,25 @@
  */
 package view;
 
+import com.mycompany.carrent.controller.RentController;
+import com.mycompany.carrent.dto.RentDto;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ASUS
  */
 public class rentalPanel extends javax.swing.JPanel {
-
+RentController rentcontroller;
     /**
      * Creates new form rentalPanel
      */
     public rentalPanel() {
+        rentcontroller = new RentController();
         initComponents();
     }
 
@@ -31,7 +40,7 @@ public class rentalPanel extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        rentalTable = new javax.swing.JTable();
         odButton = new javax.swing.JButton();
         allButton = new javax.swing.JButton();
 
@@ -54,7 +63,7 @@ public class rentalPanel extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(51, 102, 255));
         jLabel1.setText("Rentals");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        rentalTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -65,11 +74,21 @@ public class rentalPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        rentalTable.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                rentalTableMouseMoved(evt);
+            }
+        });
+        jScrollPane2.setViewportView(rentalTable);
 
         odButton.setText("Overdue");
 
         allButton.setText("All");
+        allButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                allButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -105,6 +124,18 @@ public class rentalPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void allButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allButtonActionPerformed
+    try {
+        loadAllRents();        // TODO add your handling code here:
+    } catch (Exception ex) {
+        Logger.getLogger(rentalPanel.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }//GEN-LAST:event_allButtonActionPerformed
+
+    private void rentalTableMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rentalTableMouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rentalTableMouseMoved
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton allButton;
@@ -113,7 +144,32 @@ public class rentalPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JButton odButton;
+    private javax.swing.JTable rentalTable;
     // End of variables declaration//GEN-END:variables
+
+    private void loadAllRents() throws Exception {
+        
+    
+    try {
+        String[] collumns = { "RentID","Brand", "Model", "RegNo", "Mf.Year","Rental Period"};
+        DefaultTableModel dtm = new DefaultTableModel(collumns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        rentalTable.setModel(dtm);
+        
+        ArrayList<RentDto> rents = rentcontroller.getAllRents();
+        
+        for (RentDto rent : rents) {
+            Object[] rowData = {rent.getRentId(),rent.getBrand(),rent.getModel(),rent.getRegNo(),rent.getMfyear(),rent.getRentalPeriod()};
+            dtm.addRow(rowData);
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    } catch (Exception ex) {
+        Logger.getLogger(carsPanel.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }
 }

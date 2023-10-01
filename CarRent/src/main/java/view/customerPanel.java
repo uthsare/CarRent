@@ -79,6 +79,11 @@ CustomerController customercontroller;
         postcode.setText("Postal Code");
 
         delete.setText("Delete Customer");
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
 
         update.setText("Update Customer ");
         update.addActionListener(new java.awt.event.ActionListener() {
@@ -235,8 +240,12 @@ CustomerController customercontroller;
     }//GEN-LAST:event_saveActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
-        // TODO add your handling code here:
+       updateCustomer(); // TODO add your handling code here:
     }//GEN-LAST:event_updateActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+deleteCustomer();        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -304,28 +313,42 @@ CustomerController customercontroller;
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     
 
-    /*private void loadAllCustomers() {
-      
-        try {
-            String[] collumns = {"Id", "Name", "Address", "Age", "Postal Code"};
-            DefaultTableModel dtm = new DefaultTableModel(collumns, 0) {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    return false;
-                }
-            };
-            customerTable.setModel(dtm);
-
-            ArrayList<CustomerDto> customers = customercontroller.getAllCustomers();
-
-            for (CustomerDto customer : customers) {
-                Object[] rowData = {customer.getId(), customer.getTitle() + " " + customer.getName(), customer.getAddress() + ", " + customer.getCity(), customer.getSalaray(), customer.getZip()};
-                dtm.addRow(rowData);
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(CutomerPanel.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, ex.getMessage());
-        } 
+    
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }*/
+
+    private void deleteCustomer() {
+    try {
+        String result = customercontroller.deleteCustomer(cusidtext.getText());
+        JOptionPane.showMessageDialog(this, result);
+        clear();
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    } catch (Exception ex) {
+        Logger.getLogger(customerPanel.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }
+
+    private void updateCustomer() {
+        try {
+            CustomerDto cd= new CustomerDto(cusidtext.getText(),
+                    custitletext.getText(), customernametext.getText(),
+                    (int) Double.parseDouble(ageText.getText()),
+                    addresstext.getText(), citytext.getText(), (String)districtbox.getSelectedItem(),
+                    (String)  provincebox.getSelectedItem(),
+                    postcodetext.getText());
+            
+            String result=customercontroller.updateCustomer(cd);
+            try {
+                result = customercontroller.updateCustomer(cd);
+            } catch (Exception ex) {
+                Logger.getLogger(carsPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            JOptionPane.showMessageDialog(this, result);
+            clear();
+            
+            //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        } catch (Exception ex) {
+            Logger.getLogger(customerPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }

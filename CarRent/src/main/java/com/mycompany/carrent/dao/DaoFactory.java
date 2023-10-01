@@ -4,7 +4,10 @@
  */
 package com.mycompany.carrent.dao;
 import com.mycompany.carrent.dao.custom.impl.CustomerDaoImpl;
-
+import com.mycompany.carrent.dao.custom.impl.CarDaoImpl;
+import com.mycompany.carrent.dao.custom.impl.CategoryDaoImpl;
+import com.mycompany.carrent.dao.custom.impl.RentDaoImpl;
+import com.mycompany.carrent.dao.custom.impl.ReturnDaoImpl;
 /**
  *
  * @author Uthsara Basnayake
@@ -24,11 +27,18 @@ public class DaoFactory {
      switch(type){
          case CUSTOMER:
              return new CustomerDaoImpl();
-            
+         case CAR:
+             return new CarDaoImpl();
+         case CATEGORY:
+             return new CategoryDaoImpl();
+         case RENT:
+            return new RentDaoImpl();
+         case RETURN:
+             return new ReturnDaoImpl();
          default:
      return null;}
     }
     public enum DaoTypes{
-    CUSTOMER
+    CUSTOMER,CAR,CATEGORY,RENT,RETURN
     } 
 }

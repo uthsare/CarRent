@@ -4,6 +4,10 @@
  */
 package com.mycompany.carrent.service;
 import com.mycompany.carrent.service.custom.impl.CustomerServiceImpl;
+import com.mycompany.carrent.service.custom.impl.CarServiceImpl;
+import com.mycompany.carrent.service.custom.impl.CategoryServiceImpl;
+import com.mycompany.carrent.service.custom.impl.RentServiceImpl;
+import com.mycompany.carrent.service.custom.impl.ReturnServiceImpl;
 
 /**
  *
@@ -26,16 +30,22 @@ public class ServiceFactory {
         switch (type) {
             case CUSTOMER:
                 return new CustomerServiceImpl();
-            case ITEM:
-                //return new ItemServiceImpl();
-            case ORDER:
+            case CAR:
+                return new CarServiceImpl();
+            case USER:
                // return new OrderServiceImpl();
+            case CATEGORY:
+                return new CategoryServiceImpl();
+            case RENT:
+                return new RentServiceImpl();
+            case RETURN:
+                return (SuperService) new ReturnServiceImpl();
             default:
                 return null;
         }
     }
     
     public enum ServiceType{
-        CUSTOMER, ITEM, ORDER
+        CUSTOMER, CAR,USER,CATEGORY,RENT,RETURN
     }
 }

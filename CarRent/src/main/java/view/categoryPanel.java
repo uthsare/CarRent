@@ -3,17 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package view;
+import com.mycompany.carrent.dto.CategoryDto;
+import com.mycompany.carrent.controller.CategoryController;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author ASUS
  */
 public class categoryPanel extends javax.swing.JPanel {
-
+CategoryController cc;
     /**
      * Creates new form categoryPanel
      */
     public categoryPanel() {
+       cc= new CategoryController();
         initComponents();
     }
 
@@ -37,10 +45,12 @@ public class categoryPanel extends javax.swing.JPanel {
         noOfcars = new javax.swing.JLabel();
         noofcarsText = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        categoryTable = new javax.swing.JTable();
         addbutton = new javax.swing.JButton();
         deletebutton = new javax.swing.JButton();
         updatebutton = new javax.swing.JButton();
+        fee = new javax.swing.JLabel();
+        feeText = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(153, 102, 255));
 
@@ -61,7 +71,7 @@ public class categoryPanel extends javax.swing.JPanel {
 
         noOfcars.setText("No. of Cars");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        categoryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -72,13 +82,30 @@ public class categoryPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(categoryTable);
 
         addbutton.setText("Add");
+        addbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addbuttonActionPerformed(evt);
+            }
+        });
 
         deletebutton.setText("Delete");
+        deletebutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletebuttonActionPerformed(evt);
+            }
+        });
 
         updatebutton.setText("Update");
+        updatebutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updatebuttonActionPerformed(evt);
+            }
+        });
+
+        fee.setText("Daily Rental fee LKR.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -93,18 +120,20 @@ public class categoryPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane2)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(96, Short.MAX_VALUE)
+                .addContainerGap(63, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(name)
                             .addComponent(brands)
-                            .addComponent(noOfcars))
+                            .addComponent(noOfcars)
+                            .addComponent(fee))
                         .addGap(103, 103, 103)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1)
                             .addComponent(nameText)
-                            .addComponent(noofcarsText))
+                            .addComponent(noofcarsText)
+                            .addComponent(feeText))
                         .addGap(194, 194, 194))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(updatebutton)
@@ -112,7 +141,7 @@ public class categoryPanel extends javax.swing.JPanel {
                         .addComponent(addbutton)
                         .addGap(18, 18, 18)
                         .addComponent(deletebutton)
-                        .addGap(93, 93, 93))))
+                        .addGap(78, 78, 78))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,16 +163,35 @@ public class categoryPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(brands)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(fee)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(feeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addbutton)
                     .addComponent(deletebutton)
-                    .addComponent(updatebutton))
-                .addContainerGap(23, Short.MAX_VALUE))
+                    .addComponent(addbutton)
+                    .addComponent(updatebutton)))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void addbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addbuttonActionPerformed
+addCategory();        
+    }//GEN-LAST:event_addbuttonActionPerformed
+
+    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebuttonActionPerformed
+deleteCategory();      
+    }//GEN-LAST:event_deletebuttonActionPerformed
+
+    private void updatebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatebuttonActionPerformed
+updateCategory();       
+    }//GEN-LAST:event_updatebuttonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -152,15 +200,87 @@ public class categoryPanel extends javax.swing.JPanel {
     private javax.swing.JList<String> brandsList;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JTable categoryTable;
     private javax.swing.JButton deletebutton;
+    private javax.swing.JLabel fee;
+    private javax.swing.JTextField feeText;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel name;
     private javax.swing.JTextField nameText;
     private javax.swing.JLabel noOfcars;
     private javax.swing.JTextField noofcarsText;
     private javax.swing.JButton updatebutton;
     // End of variables declaration//GEN-END:variables
+
+    private void addCategory() {
+    try {
+        CategoryDto cd =new CategoryDto(nameText.getText(),(int)Double.parseDouble(noofcarsText.getText()),brandsList.getSelectedValue(),Double.parseDouble(feeText.getText()));
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String result = cc.addCategory(cd);
+        JOptionPane.showMessageDialog(this, result);
+        clear();
+    } catch (Exception ex) {
+        Logger.getLogger(categoryPanel.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }
+
+    private void clear() {
+        nameText.setText("");
+        noofcarsText.setText("");
+         
+         
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void deleteCategory() {
+    try {
+        String result = cc.deleteCategory(nameText.getText());
+        JOptionPane.showMessageDialog(this, result);
+        clear();
+        loadAllCategories();
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    } catch (Exception ex) {
+        Logger.getLogger(categoryPanel.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }
+
+    private void loadAllCategories() {
+    try {
+        String[] collumns = { "Name", "No.OfCars", "brand", "Rental Fee"};
+        DefaultTableModel dtm = new DefaultTableModel(collumns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        categoryTable.setModel(dtm);
+        
+        ArrayList<CategoryDto> categories = cc.getAllCategories();
+        
+        for (CategoryDto category : categories) {
+            Object[] rowData = {category.getCategoryName() + ", " + category.getBrand(), category.getNoOfCars(), category.getFee()};
+            dtm.addRow(rowData);
+        }
+        
+// throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    } catch (Exception ex) {
+        Logger.getLogger(categoryPanel.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }
+
+    private void updateCategory() {
+    try {
+       CategoryDto cd =new CategoryDto(nameText.getText(),(int)Double.parseDouble(noofcarsText.getText()),brandsList.getSelectedValue(),Double.parseDouble(feeText.getText()));
+        
+        String result = cc.updateCategory(cd);
+        JOptionPane.showMessageDialog(this, result);
+        clear();
+        loadAllCategories();
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    } catch (Exception ex) {
+        Logger.getLogger(categoryPanel.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }
 }

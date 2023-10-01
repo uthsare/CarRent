@@ -103,11 +103,11 @@
                               <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="reText" alignment="0" max="32767" attributes="0"/>
+                              <Component id="damageText" alignment="0" max="32767" attributes="0"/>
                               <Component id="numberPlatetext" alignment="0" max="32767" attributes="0"/>
                               <Component id="brandText" alignment="0" max="32767" attributes="0"/>
                               <Component id="modelText" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jComboBox1" alignment="0" pref="157" max="32767" attributes="0"/>
+                              <Component id="yearbox" alignment="0" pref="157" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="183" max="32767" attributes="0"/>
@@ -132,7 +132,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="year" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="yearbox" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -142,7 +142,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="rclabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="reText" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="damageText" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="66" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -163,7 +163,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="0" red="33" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Rent"/>
+                <Property name="text" type="java.lang.String" value="Return"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="brand">
@@ -183,14 +183,14 @@
             </Component>
             <Component class="javax.swing.JLabel" name="numberplate">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Number Plate"/>
+                <Property name="text" type="java.lang.String" value="Reg.No"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="brandText">
             </Component>
             <Component class="javax.swing.JTextField" name="modelText">
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBox1">
+            <Component class="javax.swing.JComboBox" name="yearbox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="53">
@@ -258,11 +258,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Return"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="returnButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="cancelButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancel"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="numberPlatetext">
             </Component>
@@ -271,7 +277,7 @@
                 <Property name="text" type="java.lang.String" value="Any Damages"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="reText">
+            <Component class="javax.swing.JTextField" name="damageText">
             </Component>
           </SubComponents>
         </Container>
